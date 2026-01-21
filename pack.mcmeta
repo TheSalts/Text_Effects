@@ -1,0 +1,21 @@
+{
+    "pack": {
+        "description": "§eText Effects\n§fby TheSalt_",
+        "min_format": 68,
+        "max_format": 69
+    },
+    "overlays": {
+        "entries": [
+            {
+                "min_format": 68,
+                "max_format": 68,
+                "directory": "test"
+            },
+            {
+                "min_format": 69,
+                "max_format": 69,
+                "directory": "1_21_10"
+            }
+        ]
+    }
+}
