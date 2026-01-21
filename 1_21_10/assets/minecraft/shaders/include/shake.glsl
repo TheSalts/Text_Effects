@@ -10,14 +10,13 @@ float noiseShake(float x) {
 }
 
 void processShakeEffect(inout vec4 vertex, float speed, float intensity) {
-    applyColorTexture();
 
     if (speed <= 0.0) speed = 8.0;
     if (intensity <= 0.0) intensity = 1.0;
 
     float time = GameTime * 1200.0 * speed;
-    float charIndex = floor(float(gl_VertexID) / 4.0);
-    float charSeed = hashShake(charIndex * 127.1);
+    
+    float charSeed = hashShake(floor(vertex.x / 8.0) * 127.1);
 
     float shakeX = noiseShake(time * 1.0 + charSeed * 100.0) * 2.0 - 1.0;
     float shakeY = noiseShake(time * 1.3 + charSeed * 200.0 + 50.0) * 2.0 - 1.0;

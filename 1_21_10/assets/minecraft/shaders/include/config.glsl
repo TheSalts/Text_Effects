@@ -24,7 +24,7 @@
 #define WAVE_X_FREQUENCY 0.35
 
 // --- Rainbow Effect ---
-#define RAINBOW_SPEED 1000.0
+#define RAINBOW_SPEED 500.0
 
 // --- Bouncy Effect ---
 #define BOUNCE_SPEED 3000.0
@@ -38,7 +38,4 @@
 #define ONCE_SPIN_SPEED 5000.0
 
 // --- Fade Effect ---
-#define FADE_SPEED 2.5
-
-// --- Typing Effect ---
-#define TYPING_SPEED 0.5
+#define FADE_SPEED 1.0

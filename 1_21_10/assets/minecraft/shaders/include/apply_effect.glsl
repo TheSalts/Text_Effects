@@ -1,7 +1,7 @@
 #version 150
 
 void applyEffect(inout vec4 vertex, int effectID, vec4 baseColor, bool isShadow) {
-    vec4 displayColor = isShadow ? baseColor * 0.25 : baseColor;
+    vec4 displayColor = isShadow ? vec4(baseColor.rgb * 0.25, 1.0) : baseColor;
 
     // --- Effect ID 1: Shake ---
     if (effectID == 1) {
@@ -22,13 +22,8 @@ void applyEffect(inout vec4 vertex, int effectID, vec4 baseColor, bool isShadow)
         return;
     }
 
-    // --- Effect ID 3: Rainbow (no shadow) ---
+    // --- Effect ID 3: Rainbow ---
     if (effectID == 3) {
-        if (isShadow) {
-            gl_Position = vec4(2.0, 2.0, 2.0, 1.0);
-            finalize();
-            return;
-        }
         float speed = RAINBOW_SPEED;
         processRainbowEffect(vertex, speed);
         return;
@@ -110,40 +105,26 @@ void applyEffect(inout vec4 vertex, int effectID, vec4 baseColor, bool isShadow)
         return;
     }
 
-    // --- Effect ID 10: Typing ---
+    // --- Effect ID 10: Wavy + Rainbow ---
     if (effectID == 10) {
-        float speed = TYPING_SPEED;
-        vertexColor = displayColor * texelFetch(Sampler2, UV2 / 16, 0);
-        processTypingEffect(vertex, speed);
-        return;
-    }
-
-    // --- Effect ID 11: Wavy + Rainbow (no shadow) ---
-    if (effectID == 11) {
-        if (isShadow) {
-            gl_Position = vec4(2.0, 2.0, 2.0, 1.0);
-            finalize();
-            return;
-        }
         float waveSpeed = WAVE_SPEED;
         float rainbowSpeed = RAINBOW_SPEED;
+        float xPos = vertex.x;
+        float yPos = vertex.y;
         applyProjection(vertex);
         applyWaveEffect(waveSpeed);
-        applyHueColor(rainbowSpeed);
+        applyHueColor(rainbowSpeed, xPos, yPos);
         finalize();
         return;
     }
 
-    // --- Effect ID 12: Bouncy + Rainbow ---
-    if (effectID == 12) {
-        if (isShadow) {
-            gl_Position = vec4(2.0, 2.0, 2.0, 1.0);
-            finalize();
-            return;
-        }
+    // --- Effect ID 11: Bouncy + Rainbow ---
+    if (effectID == 11) {
         float bounceSpeed = BOUNCE_SPEED;
         float bounceAmp = BOUNCE_AMPLITUDE;
         float rainbowSpeed = RAINBOW_SPEED;
+        float xPos = vertex.x;
+        float yPos = vertex.y;
         float vertexId = mod(float(gl_VertexID), 4.0);
         float time = GameTime * bounceSpeed;
         if (vertex.z <= 0.0) {
@@ -155,11 +136,12 @@ void applyEffect(inout vec4 vertex, int effectID, vec4 baseColor, bool isShadow)
                 vertex.y -= cos(time) * (bounceAmp * 30.0) + max(cos(time) * (bounceAmp * 30.0), 0.0);
             }
         }
-        applyHueColor(rainbowSpeed);
+        applyHueColor(rainbowSpeed, xPos, yPos);
         applyProjection(vertex);
         finalize();
         return;
     }
+
 
 
 

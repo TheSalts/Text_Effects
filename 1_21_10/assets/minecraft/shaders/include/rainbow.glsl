@@ -6,16 +6,18 @@ vec3 hue(float t) {
     return clamp(vec3(r, g, b), 0.0, 1.0);
 }
 
-void applyHueColor(float speed) {
+void applyHueColor(float speed, float xPos, float yPos) {
     if (speed <= 0.0) speed = 1000.0;
 
     vec4 texColor = texelFetch(Sampler2, UV2 / 16, 0);
-    vec3 rainbowColor = hue((GameTime * speed) + gl_Position.x / 400.0 + gl_Position.y / 400.0);
+    vec3 rainbowColor = hue((GameTime * speed) + (xPos + yPos) * 0.01);
     vertexColor = vec4(rainbowColor, 1.0) * texColor;
 }
 
 void processRainbowEffect(inout vec4 vertex, float speed) {
+    float xPos = vertex.x;
+    float yPos = vertex.y;
     applyProjection(vertex);
-    applyHueColor(speed);
+    applyHueColor(speed, xPos, yPos);
     finalize();
 }

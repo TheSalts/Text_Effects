@@ -10,7 +10,6 @@
 #moj_import <minecraft:spin.glsl>
 #moj_import <minecraft:shake.glsl>
 #moj_import <minecraft:fade.glsl>
-#moj_import <minecraft:typing.glsl>
 
 // ============================================================
 // TEXT EFFECTS - Minecraft Color Based System
@@ -26,11 +25,10 @@
 //   +5/-5 = Blinking
 //   +6/-6 = Pulse
 //   +7/-7 = Spin
-//   +8/-8 = Random Spin
+//   +8/-8 = Delayed Spin
 //   +9/-9 = Fade
-//   +10/-10 = Typing
-//   +11/-11 = Wavy + Rainbow
-//   +12/-12 = Bouncy + Rainbow
+//   +10/-10 = Wavy + Rainbow
+//   +11/-11 = Bouncy + Rainbow
 // ============================================================
 
 // Check color match with tolerance for both main text and shadow
@@ -44,7 +42,7 @@ bool colorMatchMain(ivec3 c, int r, int g) {
 
 int getEffectOffset(int actualB, int baseB) {
     int offset = actualB - baseB;
-    if (offset >= 1 && offset <= 12) {
+    if (offset >= 1 && offset <= 11) {
         return offset;
     }
     return 0;
@@ -53,7 +51,7 @@ int getEffectOffset(int actualB, int baseB) {
 int getEffectOffsetNegative(int actualB, int baseB) {
     // For colors with B=255, check negative offset
     int offset = baseB - actualB;
-    if (offset >= 1 && offset <= 12) {
+    if (offset >= 1 && offset <= 11) {
         return offset;
     }
     return 0;
