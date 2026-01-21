@@ -12,6 +12,10 @@ Use Minecraft default colors with a **B value offset** to trigger effects.
 - **B + offset**: Effect trigger (Text Only)
 - **Shadow Alpha**: Effect trigger (Shadow Only)
 
+## Preview
+
+![Image](https://github.com/user-attachments/assets/dcda77b8-dbae-4b31-b357-501d0124dad1)
+
 ---
 
 ## Effect List
