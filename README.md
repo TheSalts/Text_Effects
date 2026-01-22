@@ -1,6 +1,6 @@
 # TheSalt's Text Effects
 
-Add dynamic text animations to your Minecraft world! This resource pack provides **11 customizable text effects**. Use with `/title`, `/tellraw`, Text Display entities, and similar text components.
+Add dynamic text animations to your Minecraft world! This resource pack provides **9 customizable text effects**. Use with `/title`, `/tellraw`, Text Display entities, and similar text components.
 
 > This resource pack is **not compatible** with other packs that use the `rendertype_text` core shader.
 
