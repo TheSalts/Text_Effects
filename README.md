@@ -132,6 +132,10 @@ Use `shadow_color` (ARGB) to trigger shadow effects. Shadow RGB should be ~25% o
 - Main text transparency is not supported (Alpha used for logic)
 - **Configuration**: Edit `assets/minecraft/shaders/include/config.glsl` to change speed, intensity, and wave frequency.
 
+## Special Thanks
+
+좌우반전 코드를 제공해 주신 @베스트견과류 님에게 감사를 표합니다.
+
 ## License
 
 This code is under MIT License
