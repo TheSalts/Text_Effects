@@ -1,41 +1,130 @@
-#version 150
-
 // ============================================================
-// TEXT EFFECTS CONFIGURATION
+// TEXT EFFECTS - Color to Effect Mappings
 // ============================================================
-// You can adjust the speed, intensity, and other parameters 
-// of the text effects here.
+// Define which colors trigger which effects
+// Use rgb(r, g, b) for color values (0-255)
+// Available effects:
+//   apply_shake()
+//   apply_wavy()
+//   apply_rainbow()
+//   apply_bouncy()
+//   apply_blinking()
+//   apply_pulse()
+//   apply_spin()
+//   apply_sequential_spin()
+//   apply_fade()
+//   apply_wavy_rainbow()
+//   apply_bouncy_rainbow()
+//   apply_iterating()
+//   apply_shimmer()
+//   apply_glitch()
+//   apply_glitch2()
+//   override_text_color(rgb(r, g, b))
 // ============================================================
 
-// --- Shake Effect ---
-#define SHAKE_SPEED 8.0
-#define SHAKE_INTENSITY 1.0
+// --- Yellow Effects (#FFFF5X) ---
+TEXT_EFFECT(255, 255, 86) {
+    apply_shake();
+}
 
-// --- Pulse Effect ---
-#define PULSE_SPEED 20.0
-#define PULSE_SIZE 0.4
+TEXT_EFFECT(255, 255, 87) {
+    apply_wavy();
+}
 
+TEXT_EFFECT(255, 255, 88) {
+    apply_rainbow();
+}
 
-// --- Wave Effect ---
-#define WAVE_SPEED 12000.0
-#define WAVE_AMPLITUDE 0.5
-// Higher value = shorter wave (more difference between characters)
-// Lower value = longer wave (less difference)
-#define WAVE_X_FREQUENCY 0.35
+TEXT_EFFECT(255, 255, 89) {
+    apply_bouncy();
+}
 
-// --- Rainbow Effect ---
-#define RAINBOW_SPEED 500.0
+TEXT_EFFECT(255, 255, 90) {
+    apply_blinking();
+}
 
-// --- Bouncy Effect ---
-#define BOUNCE_SPEED 3000.0
-#define BOUNCE_AMPLITUDE 1.0
+TEXT_EFFECT(255, 255, 91) {
+    apply_pulse();
+}
 
-// --- Blinking Effect ---
-#define BLINK_SPEED 0.5
+TEXT_EFFECT(255, 255, 92) {
+    apply_spin();
+}
 
-// --- Spin Effect ---
-#define SPIN_SPEED 2500.0
-#define ONCE_SPIN_SPEED 5000.0
+TEXT_EFFECT(255, 255, 93) {
+    apply_sequential_spin();
+}
 
-// --- Fade Effect ---
-#define FADE_SPEED 1.0
+TEXT_EFFECT(255, 255, 94) {
+    apply_fade();
+}
+
+TEXT_EFFECT(255, 255, 95) {
+    apply_wavy_rainbow();
+}
+
+TEXT_EFFECT(255, 255, 96) {
+    apply_bouncy_rainbow();
+}
+
+TEXT_EFFECT(255, 255, 97) {
+    apply_iterating();
+}
+
+TEXT_EFFECT(255, 255, 98) {
+    apply_shimmer();
+}
+
+TEXT_EFFECT(255, 255, 99) {
+    apply_glitch();
+}
+
+TEXT_EFFECT(255, 255, 100) {
+    apply_glitch2();
+}
+
+// --- Red Effects (#FF555X) ---
+TEXT_EFFECT(255, 85, 86) {
+    apply_shake();
+}
+
+TEXT_EFFECT(255, 85, 88) {
+    apply_rainbow();
+}
+
+// --- Green Effects (#55FF5X) ---
+TEXT_EFFECT(85, 255, 86) {
+    apply_shake();
+}
+
+TEXT_EFFECT(85, 255, 88) {
+    apply_rainbow();
+}
+
+// --- Custom Examples ---
+
+// Example: Fast shake with custom color display
+TEXT_EFFECT(200, 100, 50) {
+    apply_shake(2.0, 1.5);
+    apply_color(255, 255, 85);
+}
+
+// Example: Slow wavy with high amplitude
+TEXT_EFFECT(100, 100, 100) {
+    apply_wavy(8000.0, 1.0, 0.5);
+    apply_color(rgb(85, 255, 85));
+}
+
+// Example: Fast rainbow
+TEXT_EFFECT(50, 50, 50) {
+    apply_rainbow(1000.0);
+}
+
+// Example: Multiple triggers for same Yellow color with different effects
+// Use slightly different trigger colors, but display same color
+TEXT_EFFECT(254, 254, 85) {
+    apply_bouncy(5000.0, 2.0);
+    apply_color(255, 255, 85);
+}
+
+// Add more color-effect mappings below...

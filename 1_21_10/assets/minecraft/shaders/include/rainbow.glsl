@@ -1,11 +1,3 @@
-vec3 hue(float t) {
-    t = fract(t);
-    float r = abs(t * 6.0 - 3.0) - 1.0;
-    float g = 2.0 - abs(t * 6.0 - 2.0);
-    float b = 2.0 - abs(t * 6.0 - 4.0);
-    return clamp(vec3(r, g, b), 0.0, 1.0);
-}
-
 void applyHueColor(float speed, float xPos, float yPos) {
     if (speed <= 0.0) speed = 1000.0;
 

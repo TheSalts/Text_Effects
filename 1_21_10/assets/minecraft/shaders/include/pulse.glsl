@@ -1,5 +1,3 @@
-#version 150
-
 void processPulse(inout vec4 vertex, float speed, float size) {
     float time = GameTime * speed * 1000.0;
     // Scale factor: 0.0 to 1.0 based on sine
