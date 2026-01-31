@@ -5,8 +5,6 @@
 #moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:text_data.glsl>
 #moj_import <minecraft:spin_effect.glsl>
-#moj_import <minecraft:shimmer_effect.glsl>
-#moj_import <minecraft:glitch2_effect.glsl>
 
 uniform sampler2D Sampler0;
 
@@ -47,16 +45,6 @@ void main() {
     textData.spinT3 = spinT3;
     textData.color = color;
     textData.vertexColor = vertexColor;
-
-    if (effectID == 13) {
-        applyShimmerEffect(textData, Sampler0);
-        color = textData.color;
-    }
-
-    if (effectID == 15) {
-        applyGlitch2Effect(textData, Sampler0);
-        color = textData.color;
-    }
 
     if (color.a < 0.1) {
         discard;

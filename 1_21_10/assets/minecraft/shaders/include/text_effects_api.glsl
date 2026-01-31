@@ -1,7 +1,7 @@
 // ============================================================
 // TEXT EFFECTS API
 // ============================================================
-// Functions to apply text effects in config.glsl
+// Functions to apply text effects in _config.glsl
 // ============================================================
 
 // Global state for current effect being processed
@@ -10,6 +10,7 @@ vec4 currentVertex;
 vec4 currentBaseColor;
 bool currentIsShadow = false;
 bool currentApplyToShadow = false;  // Flag for applying same effect to shadow color
+bool currentHasRainbow = false;   // Flag for combining rainbow with other effects
 
 // Effect parameters (overridable via apply_xxx functions)
 float paramShakeSpeed = SHAKE_SPEED;
@@ -84,11 +85,11 @@ void apply_wavy(float speed, float amplitude, float xFrequency) {
 
 // --- Rainbow Effect ---
 void apply_rainbow() {
-    currentEffectID = 3;
+    currentHasRainbow = true;
 }
 
 void apply_rainbow(float speed) {
-    currentEffectID = 3;
+    currentHasRainbow = true;
     paramRainbowSpeed = speed;
 }
 
@@ -164,64 +165,32 @@ void apply_fade(float speed) {
     paramFadeSpeed = speed;
 }
 
-// --- Wavy + Rainbow Effect ---
-void apply_wavy_rainbow() {
-    currentEffectID = 10;
-}
-
-void apply_wavy_rainbow(float waveSpeed, float rainbowSpeed) {
-    currentEffectID = 10;
-    paramWaveSpeed = waveSpeed;
-    paramRainbowSpeed = rainbowSpeed;
-}
-
-// --- Bouncy + Rainbow Effect ---
-void apply_bouncy_rainbow() {
-    currentEffectID = 11;
-}
-
-void apply_bouncy_rainbow(float bounceSpeed, float rainbowSpeed) {
-    currentEffectID = 11;
-    paramBounceSpeed = bounceSpeed;
-    paramRainbowSpeed = rainbowSpeed;
-}
-
 // --- Iterating Effect ---
 void apply_iterating() {
-    currentEffectID = 12;
+    currentEffectID = 10;
 }
 
 void apply_iterating(float speed) {
-    currentEffectID = 12;
+    currentEffectID = 10;
     paramIteratingSpeed = speed;
 }
 
 void apply_iterating(float speed, float space) {
-    currentEffectID = 12;
+    currentEffectID = 10;
     paramIteratingSpeed = speed;
     paramIteratingSpace = space;
 }
 
-// --- Shimmer Effect ---
-void apply_shimmer() {
-    currentEffectID = 13;
-}
-
 // --- Glitch Effect ---
 void apply_glitch() {
-    currentEffectID = 14;
+    currentEffectID = 11;
 }
 
 void apply_glitch(float speed, float intensity) {
-    currentEffectID = 14;
+    currentEffectID = 11;
     paramGlitchSpeed = speed;
     paramGlitchIntensity = intensity;
 }
 
-// --- Glitch2 Effect ---
-void apply_glitch2() {
-    currentEffectID = 15;
-}
-
-// NOTE: To apply effect to both text and shadow, use TEXT_EFFECT_WITH_SHADOW(R, G, B) in config.glsl
+// NOTE: To apply effect to both text and shadow, use TEXT_EFFECT_WITH_SHADOW(R, G, B) in _config.glsl
 // Shadow color is automatically calculated as RGB * 0.25

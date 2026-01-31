@@ -1,12 +1,12 @@
 # TheSalt's Text Effects
 
-Add dynamic text animations to your Minecraft world! This resource pack provides **15 customizable text effects**. Use with `/title`, `/tellraw`, Text Display entities, and similar text components.
+Add dynamic text animations to your Minecraft world! This resource pack provides **11 customizable text effects**. Use with `/title`, `/tellraw`, Text Display entities, and similar text components.
 
 > This resource pack is **not compatible** with other packs that use the `rendertype_text` core shader.
 
 ## How It Works
 
-Define color-to-effect mappings in `config.glsl`. When text uses a matching RGB color, the configured effect is applied.
+Define color-to-effect mappings in `_config.glsl`. When text uses a matching RGB color, the configured effect is applied.
 
 ## Preview
 
@@ -27,24 +27,44 @@ Define color-to-effect mappings in `config.glsl`. When text uses a matching RGB 
 | `apply_spin()`            | Rotation                  |
 | `apply_sequential_spin()` | Sequential character spin |
 | `apply_fade()`            | Fade in/out               |
-| `apply_wavy_rainbow()`    | Wave + rainbow            |
-| `apply_bouncy_rainbow()`  | Bounce + rainbow          |
 | `apply_iterating()`       | Sequential jump           |
-| `apply_shimmer()`         | Diagonal shimmer          |
 | `apply_glitch()`          | Random displacement       |
-| `apply_glitch2()`         | RGB channel split effect  |
 
 ---
 
 ## Configuration
 
-Edit `assets/minecraft/shaders/include/config.glsl` to customize effects.
+Edit `assets/minecraft/shaders/include/_config.glsl` to customize effects.
 
 ### Basic Syntax
 
 ```glsl
 TEXT_EFFECT(R, G, B) {
     apply_effect();
+}
+```
+
+### Shadow Support
+
+To apply the same effect to both text and shadow:
+
+```glsl
+TEXT_EFFECT_WITH_SHADOW(255, 255, 86) {
+    apply_shake();
+}
+```
+
+To apply different effects to text and shadow separately, register them as separate `TEXT_EFFECT` entries. Shadow color is calculated as `RGB / 4`:
+
+```glsl
+// Text effect (255, 255, 86)
+TEXT_EFFECT(255, 255, 86) {
+    apply_shake();
+}
+
+// Shadow effect (255/4, 255/4, 86/4) = (63, 63, 21)
+TEXT_EFFECT(63, 63, 21) {
+    apply_wavy();
 }
 ```
 
@@ -56,53 +76,38 @@ TEXT_EFFECT(255, 255, 86) {
     apply_shake();
 }
 
+// Combining Wavy and Rainbow
+TEXT_EFFECT(255, 255, 95) {
+    apply_wavy();
+    apply_rainbow();
+}
+
 // Custom color with fast shake
 TEXT_EFFECT(200, 100, 50) {
     apply_shake(2.0, 1.5);
 }
+```
 
-// Rainbow effect with custom speed
-TEXT_EFFECT(50, 50, 50) {
-    apply_rainbow(1000.0);
+### Display Color
+
+Use `apply_color()` to display a different color than the trigger color:
+
+```glsl
+// Trigger color: (200, 100, 50)
+// Display color: white (255, 255, 255)
+TEXT_EFFECT(200, 100, 50) {
+    apply_shake();
+    apply_color(255, 255, 255);
 }
 ```
 
-### Effect Parameters
-
-| Effect                                    | Parameters                  |
-| ----------------------------------------- | --------------------------- |
-| `apply_shake(speed, intensity)`           | Default: 1.0, 1.0           |
-| `apply_wavy(speed, amplitude, frequency)` | Default: 12000.0, 0.5, 0.35 |
-| `apply_rainbow(speed)`                    | Default: 500.0              |
-| `apply_bouncy(speed, amplitude)`          | Default: 3000.0, 1.0        |
-| `apply_blinking(speed)`                   | Default: 0.5                |
-| `apply_pulse(speed, size)`                | Default: 20.0, 0.4          |
-| `apply_spin(speed)`                       | Default: 2500.0             |
-| `apply_fade(speed)`                       | Default: 1.0                |
-| `apply_iterating(speed, space)`           | Default: 1.0, 1.0           |
-| `apply_glitch(speed, intensity)`          | Default: 1.0, 2.0           |
-
----
-
-## Quick Start
-
-1. Open `config.glsl`
-2. Add your color-effect mapping:
-    ```glsl
-    TEXT_EFFECT(255, 0, 0) {
-        apply_shake();
-    }
-    ```
-3. Use the color in game:
-    ```mcfunction
-    /tellraw @a {"text":"Shaking!","color":"#FF0000"}
-    ```
+This is useful when you want to use a specific trigger color but display the text in a different color.
 
 ---
 
 ## Default Mappings
 
-Pre-configured Yellow effects (modify or add more in `config.glsl`):
+Pre-configured Yellow effects in `_config.glsl`:
 
 | Color Code | Effect           |
 | ---------- | ---------------- |
@@ -115,12 +120,10 @@ Pre-configured Yellow effects (modify or add more in `config.glsl`):
 | `#FFFF5C`  | Spin             |
 | `#FFFF5D`  | Sequential Spin  |
 | `#FFFF5E`  | Fade             |
-| `#FFFF5F`  | Wavy + Rainbow   |
-| `#FFFF60`  | Bouncy + Rainbow |
-| `#FFFF61`  | Iterating        |
-| `#FFFF62`  | Shimmer          |
-| `#FFFF63`  | Glitch           |
-| `#FFFF64`  | Glitch2          |
+| `#FFFF5F`  | Iterating        |
+| `#FFFF60`  | Glitch           |
+| `#FFFF61`  | Wavy + Rainbow   |
+| `#FFFF62`  | Bouncy + Rainbow |
 
 ---
 
