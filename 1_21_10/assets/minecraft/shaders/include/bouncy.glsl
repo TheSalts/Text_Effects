@@ -7,16 +7,9 @@ void processBouncyEffect(inout vec4 vertex, float speed, float amp) {
 
     float time = GameTime * speed; 
 
-    if (vertex.z <= 0.) {
-        if (vertexId == 3. || vertexId == 0.) {
-            vertex.y += cos(time) * amp;
-            vertex.y += max(cos(time) * amp, 0.);
-        }
-    } else {
-        if (vertexId == 3. || vertexId == 0.) {
-            vertex.y -= cos(time) * (amp * 30.0);
-            vertex.y -= max(cos(time) * (amp * 30.0), 0.);
-        }
+    if (vertexId == 3. || vertexId == 0.) {
+        vertex.y += cos(time) * amp;
+        vertex.y += max(cos(time) * amp, 0.);
     }
     applyProjection(vertex);
     finalize();

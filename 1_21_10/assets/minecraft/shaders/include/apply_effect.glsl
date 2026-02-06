@@ -29,15 +29,10 @@ void applyEffect(inout vec4 vertex, int effectID, vec4 baseColor, bool isShadow,
     if (effectID == 4) {
         float vertexId = mod(float(gl_VertexID), 4.0);
         float time = GameTime * paramBounceSpeed;
-        if (vertex.z <= 0.0) {
-            if (vertexId == 3.0 || vertexId == 0.0) {
-                vertex.y += cos(time) * paramBounceAmplitude + max(cos(time) * paramBounceAmplitude, 0.0);
-            }
-        } else {
-            if (vertexId == 3.0 || vertexId == 0.0) {
-                vertex.y -= cos(time) * (paramBounceAmplitude * 30.0) + max(cos(time) * (paramBounceAmplitude * 30.0), 0.0);
-            }
+        if (vertexId == 3.0 || vertexId == 0.0) {
+            vertex.y += cos(time) * paramBounceAmplitude + max(cos(time) * paramBounceAmplitude, 0.0);
         }
+        
         applyProjection(vertex);
         APPLY_COLOR_OR_RAINBOW
         finalize();
