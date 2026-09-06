@@ -17,7 +17,7 @@ void processGradientEffect(inout vec4 vertex, vec3 startColor, vec3 endColor, fl
 
     vec3 gradColor = mix(startColor, endColor, t);
     applyProjection(vertex);
-    vec4 texColor = getLightColor();
+    vec4 texColor = texelFetch(Sampler2, UV2 / 16, 0);
     vertexColor = vec4(gradColor, 1.0) * texColor;
     finalize();
 }
@@ -40,7 +40,7 @@ void processDynamicGradientEffect(inout vec4 vertex, vec3 startColor, vec3 endCo
     float t = 1.0 - abs(fract(GameTime * speed + spatial * 0.01) * 2.0 - 1.0);
     vec3 gradColor = mix(startColor, endColor, t);
     applyProjection(vertex);
-    vec4 texColor = getLightColor();
+    vec4 texColor = texelFetch(Sampler2, UV2 / 16, 0);
     vertexColor = vec4(gradColor, 1.0) * texColor;
     finalize();
 }

@@ -1,7 +1,7 @@
 void applyHueColor(float speed, float xPos, float yPos, float alpha) {
     if (speed <= 0.0) speed = 1000.0;
 
-    vec4 texColor = getLightColor();
+    vec4 texColor = texelFetch(Sampler2, UV2 / 16, 0);
 
     // See apply_effect.glsl flagDynamicGradient: model-space in GUI keeps the
     // phase stable across batch reorderings; vertex-id fallback for world text.
