@@ -1,0 +1,20 @@
+{
+    "blend": {
+        "func": "add",
+        "srcrgb": "srcalpha",
+        "dstrgb": "1-srcalpha"
+    },
+    "vertex": "core/rendertype_text_intensity",
+    "fragment": "core/rendertype_text_intensity",
+    "attributes": [
+        "Position",
+        "Color",
+        "UV0",
+        "UV2"
+    ],
+    "samplers": [
+        { "name": "Sampler0" },
+        { "name": "Sampler2" }
+    ],
+    "uniforms": []
+}

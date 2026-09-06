@@ -1,0 +1,155 @@
+#version 330
+
+#if !defined(IS_GUI) && !defined(IS_SEE_THROUGH)
+#moj_import <minecraft:fog.glsl>
+#endif
+
+#moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:globals.glsl>
+#moj_import <minecraft:text_data.glsl>
+#moj_import <minecraft:spin_effect.glsl>
+#moj_import <minecraft:outline_effect.glsl>
+#moj_import <minecraft:hatch_effect.glsl>
+#moj_import <minecraft:neon_effect.glsl>
+#moj_import <minecraft:split_effect.glsl>
+#moj_import <minecraft:chromatic_effect.glsl>
+#moj_import <minecraft:extrude_effect.glsl>
+#moj_import <minecraft:noise_effect.glsl>
+#moj_import <minecraft:liquid_effect.glsl>
+#moj_import <minecraft:water_effect.glsl>
+
+uniform sampler2D Sampler0;
+
+#if !defined(IS_GUI) && !defined(IS_SEE_THROUGH)
+in float sphericalVertexDistance;
+in float cylindricalVertexDistance;
+#endif
+
+in vec4 vertexColor;
+in vec2 texCoord0;
+
+in vec3 spinT0;
+in vec3 spinT1;
+in vec3 spinT2;
+in vec3 spinT3;
+in float spinFlip;
+in float spinScale;
+
+in float fshEffectID;
+in vec4 fshBaseColor;
+in vec2 fshCharUV;
+in vec4 fshEffectColor;
+in vec4 fshExtrudeColor2;
+in vec4 fshExtrudeColor3;
+in vec4 fshEffectParams;
+in vec3 fshGlyphT0;
+in vec3 fshGlyphT1;
+in vec3 fshGlyphT2;
+in vec3 fshGlyphT3;
+in float fshDisplayAlpha;
+
+out vec4 fragColor;
+
+void main() {
+    vec2 uv = texCoord0;
+
+    // Apply spin effect
+    applySpinEffect(uv, spinT0, spinT1, spinT2, spinT3, spinScale, spinFlip, texCoord0, Sampler0);
+
+    int effectID = int(fshEffectID + 0.5);
+
+    if (effectID == 1) {
+        applyOutlineEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
+                           fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
+                           Sampler0, fragColor);
+        fragColor.a *= fshDisplayAlpha;
+        return;
+    } else if (effectID == 2) {
+        applyHatchEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
+                         fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
+                         GameTime, Sampler0, fragColor);
+        fragColor.a *= fshDisplayAlpha;
+        return;
+    } else if (effectID == 3) {
+        applyNeonEffect(uv, fshEffectColor, fshEffectParams,
+                        fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
+                        GameTime, Sampler0, fragColor);
+        fragColor.a *= fshDisplayAlpha;
+        return;
+    } else if (effectID == 5) {
+        applySplitEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
+                            fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
+                            GameTime, Sampler0, fragColor);
+        fragColor.a *= fshDisplayAlpha;
+        return;
+    } else if (effectID == 6) {
+        applyChromaticEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
+                             fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
+                             GameTime, Sampler0, fragColor);
+        fragColor.a *= fshDisplayAlpha;
+        return;
+    } else if (effectID == 7) {
+        applyExtrudeEffect(uv, fshBaseColor, fshEffectColor, fshExtrudeColor2, fshExtrudeColor3,
+                           fshEffectParams,
+                           fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
+                           Sampler0, fragColor);
+        fragColor.a *= fshDisplayAlpha;
+        return;
+    } else if (effectID == 8) {
+        applyNoiseEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
+                         fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
+                         GameTime, Sampler0, fragColor);
+        fragColor.a *= fshDisplayAlpha;
+        return;
+    } else if (effectID == 9) {
+        applyLiquidEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
+                          fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
+                          GameTime, Sampler0, fragColor);
+        fragColor.a *= fshDisplayAlpha;
+        return;
+    } else if (effectID == 10) {
+        applyWaterEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
+                         fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
+                         GameTime, Sampler0, fragColor);
+        fragColor.a *= fshDisplayAlpha;
+        return;
+    }
+
+#ifdef IS_GRAYSCALE
+    vec4 texColor = texture(Sampler0, uv).rrrr;
+#else
+    vec4 texColor = texture(Sampler0, uv);
+#endif
+
+#ifdef IS_SEE_THROUGH
+    vec4 color = texColor * vertexColor;
+#else
+    vec4 color = texColor * vertexColor * ColorModulator;
+#endif
+
+    // Create TextData struct for effect processing
+    TextData textData;
+    textData.uv = uv;
+    textData.spinT0 = spinT0;
+    textData.spinT1 = spinT1;
+    textData.spinT2 = spinT2;
+    textData.spinT3 = spinT3;
+    textData.color = color;
+    textData.vertexColor = vertexColor;
+
+    if (color.a < 0.1) {
+        discard;
+    }
+
+#ifdef IS_SEE_THROUGH
+    fragColor = color * ColorModulator;
+#elif defined(IS_GUI)
+    fragColor = color;
+#else
+    fragColor = apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
+#endif
+
+    if (vertexColor.rgb == vec3(1.0, 1.0, 1.0)) {
+        fragColor = color;
+    }
+}
