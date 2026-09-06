@@ -246,7 +246,7 @@ void applyEffect(inout vec4 vertex, vec4 baseColor, bool isShadow) {
             auroraColor = mix(paramAuroraColor3, paramAuroraColor1, lt);
             auroraAlpha = mix(paramAuroraColor3A, paramAuroraColor1A, lt);
         }
-        vec4 texColor = sample_lightmap(Sampler2, UV2);
+        vec4 texColor = getLightColor();
         vertexColor = vec4(auroraColor * s, auroraAlpha * displayColor.a) * texColor;
     } else if (flagRainbow) {
         applyHueColor(paramRainbowSpeed, preX, preY, displayColor.a);
@@ -284,7 +284,7 @@ void applyEffect(inout vec4 vertex, vec4 baseColor, bool isShadow) {
         float dynT = 1.0 - abs(fract(GameTime * paramDynGradientSpeed + spatial * 0.01) * 2.0 - 1.0);
         vec3 dynColor = mix(paramDynGradientStart * s, paramDynGradientEnd * s, dynT);
         float dynAlpha = mix(paramDynGradientStartA, paramDynGradientEndA, dynT);
-        vec4 texColor = sample_lightmap(Sampler2, UV2);
+        vec4 texColor = getLightColor();
         vertexColor = vec4(dynColor, dynAlpha * displayColor.a) * texColor;
     } else if (flagGradient) {
         float s = isShadow ? 0.25 : 1.0;
@@ -303,10 +303,10 @@ void applyEffect(inout vec4 vertex, vec4 baseColor, bool isShadow) {
         else                   gradT = ((1.0 - x_t) + (1.0 - y_t)) * 0.5;
         vec3 gradColor = mix(paramGradientStart * s, paramGradientEnd * s, gradT);
         float gradAlpha = mix(paramGradientStartA, paramGradientEndA, gradT);
-        vec4 texColor = sample_lightmap(Sampler2, UV2);
+        vec4 texColor = getLightColor();
         vertexColor = vec4(gradColor, gradAlpha * displayColor.a) * texColor;
     } else {
-        vertexColor = displayColor * sample_lightmap(Sampler2, UV2);
+        vertexColor = displayColor * getLightColor();
     }
 
     // ========================================

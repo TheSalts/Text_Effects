@@ -1,12 +1,7 @@
 #version 150
 
-#moj_import <minecraft:fog.glsl>
-
 uniform float GameTime;
 uniform vec4 ColorModulator;
-uniform float FogStart;
-uniform float FogEnd;
-uniform vec4 FogColor;
 
 #moj_import <minecraft:text_data.glsl>
 #moj_import <minecraft:spin_effect.glsl>
@@ -22,7 +17,6 @@ uniform vec4 FogColor;
 
 uniform sampler2D Sampler0;
 
-in float vertexDistance;
 in vec4 vertexColor;
 in vec2 texCoord0;
 
@@ -128,9 +122,5 @@ void main() {
         discard;
     }
 
-    fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
-
-    if (vertexColor.rgb == vec3(1.0, 1.0, 1.0)) {
-        fragColor = color;
-    }
+    fragColor = color;
 }

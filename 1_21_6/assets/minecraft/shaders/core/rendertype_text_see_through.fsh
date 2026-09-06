@@ -1,6 +1,5 @@
 #version 330
 
-#moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:dynamictransforms.glsl>
 #moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:text_data.glsl>
@@ -17,8 +16,6 @@
 
 uniform sampler2D Sampler0;
 
-in float sphericalVertexDistance;
-in float cylindricalVertexDistance;
 in vec4 vertexColor;
 in vec2 texCoord0;
 
@@ -125,9 +122,5 @@ void main() {
         discard;
     }
 
-    fragColor = apply_fog(color, sphericalVertexDistance, cylindricalVertexDistance, FogEnvironmentalStart, FogEnvironmentalEnd, FogRenderDistanceStart, FogRenderDistanceEnd, FogColor);
-
-    if (vertexColor.rgb == vec3(1.0, 1.0, 1.0)) {
-        fragColor = color;
-    }
+    fragColor = color;
 }

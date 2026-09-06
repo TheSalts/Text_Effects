@@ -27,7 +27,16 @@ void applyProjection(inout vec4 vertex) {
     gl_Position = ProjMat * ModelViewMat * vertex;
 }
 
+#ifdef SEE_THROUGH
+vec4 getLightColor() {
+    return vec4(1.0);
+}
+#else
+vec4 getLightColor() {
+    return texelFetch(Sampler2, UV2 / 16, 0);
+}
+#endif
+
 void applyColorTexture() {
-    vec4 texColor = texelFetch(Sampler2, UV2 / 16, 0);
-    vertexColor = Color * texColor;
+    vertexColor = Color * getLightColor();
 }
