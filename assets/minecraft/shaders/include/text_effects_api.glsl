@@ -329,6 +329,9 @@ void apply_scale(float scale, float offsetX, float offsetY) {
 }
 
 void apply_offset(float offsetX, float offsetY) {
+    if (!flagScale) {
+        paramScaleFactor = 1.0;
+    }
     flagScale = true;
     paramScaleFactor = 0.0;
     paramScaleOffsetX = offsetX;
