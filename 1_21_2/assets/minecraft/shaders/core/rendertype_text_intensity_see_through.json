@@ -4,8 +4,8 @@
         "srcrgb": "srcalpha",
         "dstrgb": "1-srcalpha"
     },
-    "vertex": "core/rendertype_text_intensity",
-    "fragment": "core/rendertype_text_intensity",
+    "vertex": "core/rendertype_text_intensity_see_through",
+    "fragment": "core/rendertype_text_intensity_see_through",
     "attributes": [
         "Position",
         "Color",
