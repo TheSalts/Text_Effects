@@ -62,30 +62,35 @@ void main() {
         applyOutlineEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
                            fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
                            Sampler0, fragColor);
+        fragColor *= ColorModulator;
         fragColor.a *= fshDisplayAlpha;
         return;
     } else if (effectID == 2) {
         applyHatchEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
                          fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
                          GameTime, Sampler0, fragColor);
+        fragColor *= ColorModulator;
         fragColor.a *= fshDisplayAlpha;
         return;
     } else if (effectID == 3) {
         applyNeonEffect(uv, fshEffectColor, fshEffectParams,
                         fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
                         GameTime, Sampler0, fragColor);
+        fragColor *= ColorModulator;
         fragColor.a *= fshDisplayAlpha;
         return;
     } else if (effectID == 5) {
         applySplitEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
                             fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
                             GameTime, Sampler0, fragColor);
+        fragColor *= ColorModulator;
         fragColor.a *= fshDisplayAlpha;
         return;
     } else if (effectID == 6) {
         applyChromaticEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
                              fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
                              GameTime, Sampler0, fragColor);
+        fragColor *= ColorModulator;
         fragColor.a *= fshDisplayAlpha;
         return;
     } else if (effectID == 7) {
@@ -93,24 +98,28 @@ void main() {
                            fshEffectParams,
                            fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
                            Sampler0, fragColor);
+        fragColor *= ColorModulator;
         fragColor.a *= fshDisplayAlpha;
         return;
     } else if (effectID == 8) {
         applyNoiseEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
                          fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
                          GameTime, Sampler0, fragColor);
+        fragColor *= ColorModulator;
         fragColor.a *= fshDisplayAlpha;
         return;
     } else if (effectID == 9) {
         applyLiquidEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
                           fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
                           GameTime, Sampler0, fragColor);
+        fragColor *= ColorModulator;
         fragColor.a *= fshDisplayAlpha;
         return;
     } else if (effectID == 10) {
         applyWaterEffect(uv, fshBaseColor, fshEffectColor, fshEffectParams,
                          fshGlyphT0, fshGlyphT1, fshGlyphT2, fshGlyphT3,
                          GameTime, Sampler0, fragColor);
+        fragColor *= ColorModulator;
         fragColor.a *= fshDisplayAlpha;
         return;
     }

@@ -29,7 +29,6 @@ vec4 get_lightmap_color() {
 }
 
 void finalize() {
-    vertexColor *= ColorModulator;
 }
 
 void applyProjection(inout vec4 vertex) {
