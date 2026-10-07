@@ -1,5 +1,5 @@
-#ifndef TEXT_EFFECTS_26_2_COMMON_GLSL
-#define TEXT_EFFECTS_26_2_COMMON_GLSL
+#ifndef TEXT_EFFECTS_26_3_COMMON_GLSL
+#define TEXT_EFFECTS_26_3_COMMON_GLSL
 
 // Author: nattapat2871 (https://nattapat2871.me)
 #define PI 3.14159265359
@@ -44,4 +44,4 @@ void applyColorTexture() {
     vertexColor = Color * get_lightmap_color();
 }
 
-#endif // TEXT_EFFECTS_26_2_COMMON_GLSL
+#endif // TEXT_EFFECTS_26_3_COMMON_GLSL

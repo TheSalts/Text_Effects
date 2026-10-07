@@ -1,6 +1,6 @@
 {
   "pack": {
-    "description": "§eText Effects §av1.1.7\n§7by TheSalt_",
+    "description": "\u00a7eText Effects \u00a7av1.1.8\n\u00a77by TheSalt_",
     "pack_format": 16,
     "supported_formats": {
       "min_inclusive": 7,
@@ -12,28 +12,52 @@
   "overlays": {
     "entries": [
       {
-        "formats": { "min_inclusive": 36, "max_inclusive": 56 },
+        "formats": {
+          "min_inclusive": 36,
+          "max_inclusive": 56
+        },
         "min_format": 36,
         "max_format": 56,
         "directory": "1_21_2"
       },
       {
-        "formats": { "min_inclusive": 57, "max_inclusive": 100 },
+        "formats": {
+          "min_inclusive": 57,
+          "max_inclusive": 100
+        },
         "min_format": 57,
         "max_format": 100,
         "directory": "1_21_6"
       },
       {
-        "formats": { "min_inclusive": 76, "max_inclusive": 87 },
+        "formats": {
+          "min_inclusive": 76,
+          "max_inclusive": 87
+        },
         "min_format": 76,
         "max_format": 87,
         "directory": "26_1"
       },
       {
-        "formats": { "min_inclusive": 88, "max_inclusive": 200 },
+        "formats": {
+          "min_inclusive": 88,
+          "max_inclusive": 96
+        },
         "min_format": 88,
-        "max_format": 200,
+        "max_format": 96,
         "directory": "26_2"
+      },
+      {
+        "directory": "26_3",
+        "min_format": [
+          97,
+          1
+        ],
+        "max_format": 200,
+        "formats": {
+          "min_inclusive": 97,
+          "max_inclusive": 200
+        }
       }
     ]
   }
